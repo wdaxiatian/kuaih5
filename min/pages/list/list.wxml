@@ -1,0 +1,3 @@
+<view  bindtap="setreq" class="container">{{text}}
+ <button > {{sub}} </button>
+  </view>
