@@ -108,19 +108,7 @@ class OpenidServer extends ServerBase {
         }
     }
 
-    //查询openid是否存在数据库中
-    public static function checkopenid($openid) {
-        $model = new Openid();
-        $criteria = new CDbCriteria;
-        $criteria->select = '*';
-        $criteria->condition = 'openid=:openid';
-        $criteria->params = array('openid' => $openid);
-        $rs = $model->findAll($criteria);
-        if (!$rs) {
-            $rs = null;
-        }
-        return $rs;
-    }
+
 
     public static function saveInfo($url, $post) {
 

@@ -135,30 +135,5 @@ class BaseController extends CController {
         return json_decode($data, true);
     }
 
-    //js_ticket传入公共布局
-    public function getjsticket() {
-        $js_ticket = JsticketServer::getTicket();
-        $this->js_ticket = $js_ticket;
-        $view = Yii::app();
-        $view->params = $this->js_ticket;
-    }
-
-    //获取微信ACCESS_TOKEN,只有微信项目能用
-    public function getAccesstoken() {
-        $data = @json_decode(file_get_contents("access_token.json"), true);
-      
-        if ($data['expire_time'] < time()) {  
-            return $data['access_token'];
-        }
-        //重新获取
-        $appId = APPID;
-        $appSecret = APPSECRET;
-        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appId&secret=$appSecret";
-        $res = self::getCurl($url);
-        $data['expire_time'] = time() + 7000;
-        $data['access_token'] = $res['access_token'];
-        @file_put_contents('access_token.json', json_encode($data));
-        return $res['access_token'];
-    }
 
 }

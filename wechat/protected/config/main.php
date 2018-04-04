@@ -7,7 +7,7 @@ require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.DIRE
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'cxg',
-	'defaultController'=>'index/index',  //默认控制器
+	'defaultController'=>'admin/login/index',  //默认控制器
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -48,12 +48,12 @@ return array(
 
 		'db'=>array(
 			'class'=>'CDbConnection',
-			'connectionString' => 'mysql:host=127.0.0.1;dbname=cxg',
+			'connectionString' => 'mysql:host=127.0.0.1;dbname=wechat',
 			'emulatePrepare' => true,
 			'username' =>'root',
 			'password' => '',
 			'charset' => 'utf8mb4',
-			'tablePrefix' => 'c_'
+			'tablePrefix' => 'w_'
 		), 
 		
 		//redis 缓存  调用方法 Yii::app()->redis->set();

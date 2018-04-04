@@ -6,12 +6,13 @@
  */
 $baseDir = dirname(__FILE__);
 $uploads = $baseDir.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..';  
-$siteUrl='http://ltwxtest.mynatapp.cc/cxg';
+$siteUrl='../wechat';
 define('LINK', 'ltwxtest.mynatapp.cc/cxg/index-test.php');  
 //$siteUrl='http://localhost/cxg';
 define('UPLOAD_PATH', $uploads.'/uploads');                              
-define('STATICS', $siteUrl.'/statics');		//网站静态文件路径 css js images  
+define('STATICS', $siteUrl.'/statics/admin/');		//网站静态文件路径 css js images  
 define('HASH', 'wangqingchen');		//表单令牌加密字符串
+define('PWDSTR', 'house');		//密码加密字符串
 define('APPID','wx5070e4bae04cf7c8');
 define('APPSECRET','180565f1522e0c62b822ec8af55b2726');
 define('STATICS_IMG','http://192.168.100.102:5678/Portal/');

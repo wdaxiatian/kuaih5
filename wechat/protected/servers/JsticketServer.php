@@ -4,10 +4,10 @@
 class JsticketServer extends ServerBase {
 
     public static function getTicket() {
-        
+
         $jsapiTicket = self::getJsApiTicket();
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-        $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";	//接口自带的获取链接的方法
+        $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; //接口自带的获取链接的方法
         //$url = "$protocol$lburl";
         $timestamp = time();
         $nonceStr = self::createNonceStr();
@@ -17,8 +17,15 @@ class JsticketServer extends ServerBase {
 
         $signature = sha1($string);
 
+        $appId = '';
+        //获取$appId
+        $list = WsettingServer::getList();
+        foreach ($list as $k => $v) {
+            if ($v['name'] == 'appId')
+                $appId = $v['content'];
+        }
         $signPackage = array(
-            "appId" =>APPID,
+            "appId" => $appId,
             "nonceStr" => $nonceStr,
             "timestamp" => $timestamp,
             "url" => $url,
@@ -39,65 +46,42 @@ class JsticketServer extends ServerBase {
 
     public static function getJsApiTicket() {
 
-        // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
-        $data = @json_decode(file_get_contents("jsapi_ticket.json"), true);
-        if ($data['expire_time'] < time()) {
-            $accessToken = self::getAccessToken();
+        //抓取数据
+        $data = self::getdbJsticket();
+        if ($data['time'] < time()) {
+            $accessToken = AccessTokenServer::getAccessToken();
             // 如果是企业号用以下 URL 获取 ticket
-
+           
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
             $res = json_decode(self::httpGet($url), true);
+            
             $ticket = $res['ticket'];
             if ($ticket) {
-                $data['expire_time'] = time() + 7000;
-                $data['jsapi_ticket'] = $ticket;
-              
-                @file_put_contents('jsapi_ticket.json',json_encode($data));
+                $data['time'] = time() + 3600;
+                $data['jsticket'] = $ticket;
+                self::update(array('id' => 1), $data);
             }
         } else {
-            $ticket = $data['jsapi_ticket'];
+            $ticket = $data['jsticket'];
         }
 
         return $ticket;
     }
 
-    public static function getAccessToken() {
-        // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
-        $data = @json_decode(file_get_contents("access_token.json"), true);
-        if ($data['expire_time'] < time()) {
-            // 如果是企业号用以下URL获取access_token
-            $appId = APPID;
-            $appSecret = APPSECRET;
-
-            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appId&secret=$appSecret";
-            $res = json_decode(self::httpGet($url), true);
-            
-            $access_token = $res['access_token'];
-            if ($access_token) {
-
-                $data['expire_time'] = time() + 7000;
-                $data['access_token'] = $access_token;
-                   
-               @file_put_contents('access_token.json',json_encode($data));
-               
-            }
-        } else {
-            $access_token = $data['access_token'];
-        }
-        return $access_token;
+    //数据库里读取ticket
+    public static function getdbJsticket() {
+        $model = new Jsticket();
+        $criteria = new CDbCriteria;
+        $criteria->select = '*';
+        $rs = $model->find($criteria);
+        return $rs;
     }
 
-    public static function httpGet($url) {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url); //The URL to fetch.
-        curl_setopt($ch, CURLOPT_HEADER, 0); //TRUE to include the header in the output.
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); //不验证证书
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $data = curl_exec($ch);
-        curl_close($ch);
-
-        return $data;
+    //修改数据
+    public static function update($condition, $params) {
+        $param = self::comParams($condition);
+        $rs = Jsticket::model()->updateAll($params, $param);
+        return $rs;
     }
 
 }

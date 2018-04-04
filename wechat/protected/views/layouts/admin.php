@@ -1,110 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>城西港区微信公众号后台管理</title>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="<?php echo STATICS?>/admin/css/bootstrap.min.css" />
-<link rel="stylesheet" href="<?php echo STATICS?>/admin/css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="<?php echo STATICS?>/admin/css/fullcalendar.css" />
-<link rel="stylesheet" href="<?php echo STATICS?>/admin/css/matrix-style.css" />
-<link rel="stylesheet" href="<?php echo STATICS?>/admin/css/matrix-media.css" />
-<link href="<?php echo STATICS?>/admin/font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link rel="stylesheet" href="<?php echo STATICS?>/admin/css/jquery.gritter.css" />
-<script src="<?php echo STATICS?>/admin/js/excanvas.min.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/jquery.min.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/jquery.ui.custom.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/bootstrap.min.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/jquery.flot.min.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/jquery.flot.resize.min.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/jquery.peity.min.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/fullcalendar.min.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/matrix.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/matrix.dashboard.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/jquery.gritter.min.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/matrix.interface.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/matrix.chat.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/jquery.validate.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/matrix.form_validation.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/jquery.wizard.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/jquery.uniform.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/select2.min.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/matrix.popover.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/jquery.dataTables.min.js"></script> 
-<script src="<?php echo STATICS?>/admin/js/matrix.tables.js"></script> 
-<script src="<?php echo STATICS?>/ueditor/ueditor.config.js"></script> 
-<script src="<?php echo STATICS?>/ueditor/ueditor.all.min.js"></script> 
-<script src="<?php echo STATICS?>/ueditor/lang/zh-cn/zh-cn.js"></script> 
+    <head>
+        <meta charset="utf-8">
+        <title>微信管理后台</title>
 
-</head>
-<body>
+        <!-- start: Mobile Specific -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- end: Mobile Specific -->
 
-<!--Header-part-->
-<div id="header">
-  <h1><a href="">城西港区微信公众号后台管理</a></h1>
-</div>
-<!--close-Header-part--> 
+        <!-- start: CSS -->
+        <link id="bootstrap-style" href="<?php echo STATICS ?>css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo STATICS ?>css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link id="base-style" href="<?php echo STATICS ?>css/style.css" rel="stylesheet">
+        <link id="base-style-responsive" href="<?php echo STATICS ?>css/style-responsive.css" rel="stylesheet">
 
 
-<!--top-Header-menu-->
-<div id="user-nav" class="navbar navbar-inverse">
-  <ul class="nav">
-    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">欢迎你，<?php echo Yii::app()->session['admin']['name']?></span></a>
-    </li>
-
-    <li class=""><a title="" href="javascript:;" onclick ="logout()"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
-  </ul>
-</div>
-<!--close-top-Header-menu-->
-<!--start-top-serch-->
-
-<!--close-top-serch-->
-<!--sidebar-menu-->
-<div id="sidebar">
-  <ul>
-    <li <?php if(Yii::app()->controller->id =='site'):?> class="active" <?php endif;?>><a href="<?php echo U('site/index')?>"><i class="icon icon-home"></i> <span>我的主页</span></a></li>
-    <li <?php if(Yii::app()->controller->id =='rand'):?> class="active" <?php endif;?>><a href="<?php echo U('rand/list')?>"><i class="icon icon-home"></i> <span>订单列表</span></a></li>
-
-  </ul>
-</div>
-<!--sidebar-menu-->
-
-
-	<?php echo $content;?>
+        <!-- start: Favicon -->
+        <link rel="shortcut icon" href="<?php echo STATICS ?>img/favicon.ico">
+        <!-- end: Favicon -->
 
 
 
 
+        <!-- start: JavaScript-->
 
-<!--end-Footer-part-->
+        <script src="<?php echo STATICS ?>js/jquery-1.9.1.min.js"></script>
+        <script src="<?php echo STATICS ?>js/jquery-migrate-1.0.0.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery-ui-1.10.0.custom.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.ui.touch-punch.js"></script>
+
+        <script src="<?php echo STATICS ?>js/modernizr.js"></script>
+
+        <script src="<?php echo STATICS ?>js/bootstrap.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.cookie.js"></script>
+
+        <script src='<?php echo STATICS ?>js/fullcalendar.min.js'></script>
+
+        <script src='<?php echo STATICS ?>js/jquery.dataTables.min.js'></script>
+
+        <script src="<?php echo STATICS ?>js/excanvas.js"></script>
+        <script src="<?php echo STATICS ?>js/jquery.flot.js"></script>
+        <script src="<?php echo STATICS ?>js/jquery.flot.pie.js"></script>
+        <script src="<?php echo STATICS ?>js/jquery.flot.stack.js"></script>
+        <script src="<?php echo STATICS ?>js/jquery.flot.resize.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.chosen.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.uniform.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.cleditor.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.noty.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.elfinder.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.raty.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.iphone.toggle.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.uploadify-3.1.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.gritter.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.imagesloaded.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.masonry.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.knob.modified.js"></script>
+
+        <script src="<?php echo STATICS ?>js/jquery.sparkline.min.js"></script>
+
+        <script src="<?php echo STATICS ?>js/counter.js"></script>
+
+        <script src="<?php echo STATICS ?>js/retina.js"></script>
+
+        <script src="<?php echo STATICS ?>js/custom.js"></script>
+        <!-- end: JavaScript-->
+        <link  href="<?php echo STATICS ?>css/enjoy.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#"><span>欢迎</span></a>
+
+                    <!-- start: Header Menu -->
+                    <div class="nav-no-collapse header-nav">
+                        <ul class="nav pull-right">
+                            <li class="dropdown hidden-phone">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="icon-bell"></i>
+                                    <span class="badge red">
+                                        2</span>
+                                </a>
+                                <ul class="dropdown-menu notifications">
+                                    <li class="dropdown-menu-title">
+                                        <span>You have 11 notifications</span>
+                                        <a href="#refresh"><i class="icon-repeat"></i></a>
+                                    </li>	
+
+
+                                    <li>
+                                        <a href="#">
+                                            <span class="icon blue"><i class="icon-user"></i></span>
+                                            <span class="message">New user registration</span>
+                                            <span class="time">yesterday</span> 
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-menu-sub-footer">
+                                        <a>View all notifications</a>
+                                    </li>	
+                                </ul>
+                            </li>
+
+
+                            <!-- start: User Dropdown -->
+                            <li class="dropdown">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="halflings-icon white user"></i> <?php echo Yii::app()->session['admin']['username'] ?>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-menu-title">
+                                        <span>设置</span>
+                                    </li>
+                                    <li><a href="#"><i class="halflings-icon user"></i> 个人设置</a></li>
+                                    <li><a href="#" onclick ="logout()"><i class="halflings-icon off"></i> 退出登录</a></li>
+                                </ul>
+                            </li>
+                            <!-- end: User Dropdown -->
+                        </ul>
+                    </div>
+                    <!-- end: Header Menu -->
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid-full">
+            <div class="row-fluid">
+
+                <!-- start: Main Menu -->
+                <div id="sidebar-left" class="span2">
+                    <div class="nav-collapse sidebar-nav">
+                        <ul class="nav nav-tabs nav-stacked main-menu">
+                            <li><a href="<?php echo U('admin/index/index') ?>"><i class="icon-bar-chart"></i><span class="hidden-tablet"> 主页</span></a></li>	
+                            <li><a href="<?php echo U('admin/admin/list') ?>"><i class="icon-group"></i><span class="hidden-tablet"> 管理员设置</span></a></li>
+                            <li><a href="<?php echo U('admin/wsetting/list') ?>"><i class="icon-list-alt"></i><span class="hidden-tablet"> 微信公众号设置</span></a></li>
+                            <li><a href="<?php echo U('admin/userinfo/index') ?>"><i class="icon-eye-open"></i><span class="hidden-tablet"> 获取授权地址</span></a></li>
+                            <!--                            <li>
+                                                            <a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span class="hidden-tablet"> Dropdown</span><span class="label label-important"> 3 </span></a>
+                                                            <ul>
+                                                                <li><a class="submenu" href="submenu.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> Sub Menu 1</span></a></li>
+                                                                <li><a class="submenu" href="submenu2.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> Sub Menu 2</span></a></li>
+                                                                <li><a class="submenu" href="submenu3.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> Sub Menu 3</span></a></li>
+                                                            </ul>	
+                                                        </li>-->
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- end: Main Menu -->
+
+                <!-- start: Content -->
+                <div id="content" class="span10">
+
+                    <?php echo $content; ?>
+
+
+                </div><!--/.fluid-container-->
+
+                <!-- end: Content -->
+            </div><!--/#content.span10-->
+        </div><!--/fluid-row-->
+
+        <footer>
+
+        </footer>
+
+
+    </body>
+</html>
 
 <script type="text/javascript">
-	function logout(){
-			if(confirm('您确定要退出吗？')){
-				window.location.href = '<?php echo U('admin/login/loginout')?>';
-			}else{
-				return false;
-			}
-	}
+    function logout() {
+        if (confirm('您确定要退出吗？')) {
+            window.location.href = '<?php echo U('admin/login/loginout') ?>';
+        } else {
+            return false;
+        }
+    }
 
-  function goPage (newURL) {
-
-      if (newURL != "") {
-
-          if (newURL == "-" ) {
-              resetMenu();            
-          } 
-       
-          else {  
-            document.location.href = newURL;
-          }
-      }
-  }
-
-
-function resetMenu() {
-   document.gomenu.selector.selectedIndex = 2;
-}
 </script>
-</body>
-</html>

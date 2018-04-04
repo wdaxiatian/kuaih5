@@ -3,26 +3,24 @@
 //微信授权类
 class OpenidController extends BaseController {
 
-    //验证openid的有效性
-    public function actionCheckopenid() {
-        $openid = !empty($_REQUEST['openid']) ? $_REQUEST['openid'] : '';
-        if (!empty($openid)) {
-            $result = OpenidServer::checkopenid($openid);
-            print_r($result);
-            exit;
-        }
-    }
-
     ////////////获取微信信息列表
     public function actionIndexList() {
-        $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
-        $state = isset($_REQUEST['url']) ? $_REQUEST['url'] : '';
+        $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+        $list = WsettingServer::getList();
+        foreach ($list as $k => $v) {
+            if ($v['name'] == 'appId')
+                $appId = $v['content'];
+            if ($v['name'] == 'trustpath') {
+                $r_url =urlencode($http_type.$v['content'] . Yii::app()->request->baseUrl . '/index.php?r=openid/openids');
+            }
+        }
+         
+        $url = isset($_REQUEST['url']) ? $_REQUEST['url'] : '';
         $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : 'base';
-        $wx = $this->wxlist($name);
-        $appid = $wx['appid'];
         $r_url = 'http%3a%2f%2fltwxtest.mynatapp.cc%2fcxg%2findex.php%3fr%3dopenid%2fopenids';
-        $url = "http://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$r_url&response_type=code&scope=snsapi_$type&state=$state,n=$name,t=$type&connect_redirect=1#wechat_redirect";
-        echo $url;
+        
+        $url = "http://open.weixin.qq.com/connect/oauth2/authorize?appid=$appId&redirect_uri=$r_url&response_type=code&scope=snsapi_$type&state=$url,t=$type&connect_redirect=1#wechat_redirect";
+        echo json_encode($url);
         exit;
     }
 

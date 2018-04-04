@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>西港城微信后台</title>
+<title>微信后台</title>
 <meta charset="UTF-8" />
 </head>
 <?php if(!$isAjax):?>
